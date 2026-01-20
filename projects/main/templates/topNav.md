@@ -1,3 +1,6 @@
-- top nav item 1
-- top nav item 2
-- top nav item 3
+<li><a href="/learn">Learn</a></li>
+<li><a href="/workshops">Workshops</a></li>
+<li><a href="/illustration">Illustration</a></li>
+<li><a href="/stories">Stories</a></li>
+<li><a href="/prints">Prints</a></li>
+<li><a href="/about">About</a></li>

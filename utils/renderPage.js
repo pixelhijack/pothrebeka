@@ -33,8 +33,8 @@ export default function renderPage(page, templates) {
   
   // Replace {{navColorClass}} with appropriate classes
   const navColorClass = page.navColor === 'black' 
-    ? 'bg-black text-white' 
-    : 'bg-white text-black';
+    ? 'text-black' 
+    : 'text-white';
   html = html.replace(/\{\{navColorClass\}\}/g, navColorClass);
   
   // Replace {{mainClass}} with page's mainClass

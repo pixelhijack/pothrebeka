@@ -5,14 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
   <link rel="stylesheet" href="/output.css">
+  <link rel="stylesheet" href="/css/base.css">
 </head>
 <body {{backgroundStyle}}>
   <!-- Top Navigation -->
-  <nav class="fixed top-0 left-0 right-0 {{navColorClass}} p-4 shadow-md z-50">
-    <div class="container mx-auto">
+  <nav class="fixed top-0 left-0 w-full z-50 bg-transparent" style="height: 75px;">
+    <div class="container mx-auto flex justify-between items-center h-full px-4">
+      <!-- Logo -->
+      <a href="/" class="text-4xl font-bold {{navColorClass}}"><b>Póth Attila</b></a>
+      
+      <!-- Desktop Nav Links -->
+      <div id="nav-links" class="hidden md:block {{navColorClass}}">
+        <ul>
 {{include:'topNav.md'}}
+        </ul>
+      </div>
+      
+      <!-- Mobile Hamburger Button -->
+      <button id="hamburger-btn" class="md:hidden text-5xl {{navColorClass}}" aria-label="Open menu" aria-expanded="false">≡</button>
     </div>
   </nav>
+  
+  <!-- Mobile Overlay Menu -->
+  <div id="mobile-nav-overlay" class="hidden">
+    <div class="fixed inset-0 bg-black bg-opacity-95 z-50 flex flex-col">
+      <button id="close-mobile-nav" class="absolute top-6 right-8 text-white text-5xl" aria-label="Close menu">✕</button>
+      <nav id="mobile-nav-list" class="flex-1 flex items-center justify-center">
+        <ul>
+{{include:'topNav.md'}}
+        </ul>
+      </nav>
+    </div>
+  </div>
   
   <!-- Main Content -->
   <main class="{{mainClass}}">
@@ -25,5 +49,35 @@
 {{include:'footer.md'}}
     </div>
   </footer>
+  
+  <!-- Mobile Menu Script -->
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+    const closeMobileNav = document.getElementById('close-mobile-nav');
+    
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener('click', () => {
+        mobileNavOverlay.style.display = 'block';
+        hamburgerBtn.setAttribute('aria-expanded', 'true');
+      });
+    }
+    
+    if (closeMobileNav) {
+      closeMobileNav.addEventListener('click', () => {
+        mobileNavOverlay.style.display = 'none';
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    }
+    
+    // Close on link click (for mobile)
+    const mobileLinks = document.querySelectorAll('#mobile-nav-list a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNavOverlay.style.display = 'none';
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
 </body>
 </html>

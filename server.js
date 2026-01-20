@@ -21,20 +21,57 @@ console.log("Starting Express server...");
 const projectDir = path.join(__dirname, 'projects/main');
 const workspaceRoot = __dirname;
 
-console.log("Loading markdown pages...");
-const pages = loadMarkdownPages(projectDir, workspaceRoot);
-console.log(`Loaded ${pages.length} pages`);
+let pages, templates, pagesMap;
 
-console.log("Loading templates...");
-const templates = loadTemplates(projectDir);
-console.log(`Loaded ${Object.keys(templates).length} templates`);
+function loadContent() {
+  console.log("Loading markdown pages...");
+  pages = loadMarkdownPages(projectDir, workspaceRoot);
+  console.log(`Loaded ${pages.length} pages`);
 
-// Create a pages map for quick lookup by slug
-const pagesMap = new Map();
-pages.forEach(page => {
-  pagesMap.set(page.slug, page);
-  console.log(`  - /${page.slug} (${page.template || 'default'})`);
-});
+  console.log("Loading templates...");
+  templates = loadTemplates(projectDir);
+  console.log(`Loaded ${Object.keys(templates).length} templates`);
+
+  // Create a pages map for quick lookup by slug
+  pagesMap = new Map();
+  pages.forEach(page => {
+    pagesMap.set(page.slug, page);
+    console.log(`  - /${page.slug} (${page.template || 'default'})`);
+  });
+}
+
+// Initial load
+loadContent();
+
+// Watch for markdown file changes in development
+if (process.env.NODE_ENV === 'development' || process.env.NODE_DEBUG === 'express') {
+  const PROJECT = process.env.PROJECT_NAME || 'main';
+  const projectDirWatch = path.join(__dirname, 'projects', PROJECT);
+  const pagesDir = path.join(projectDirWatch, 'pages');
+  const templatesDir = path.join(projectDirWatch, 'templates');
+  
+  // Watch pages directory recursively (markdown files)
+  if (fs.existsSync(pagesDir)) {
+    fs.watch(pagesDir, { recursive: true }, (eventType, filename) => {
+      if (filename && filename.endsWith('.md')) {
+        console.log(`📝 Markdown file changed: ${filename} - reloading...`);
+        loadContent();
+      }
+    });
+    console.log('📝 Watching for markdown changes in:', pagesDir);
+  }
+  
+  // Watch templates directory
+  if (fs.existsSync(templatesDir)) {
+    fs.watch(templatesDir, { recursive: true }, (eventType, filename) => {
+      if (filename && filename.endsWith('.md')) {
+        console.log(`📝 Template changed: ${filename} - reloading...`);
+        loadContent();
+      }
+    });
+    console.log('📝 Watching for template changes in:', templatesDir);
+  }
+}
 
 console.log("Starting Express server...");
 
