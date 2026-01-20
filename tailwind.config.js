@@ -5,7 +5,8 @@ export default {
     "./server.js",
     "./utils/**/*.js",
     "./templates/**/*.js",           // Template files
-    "./projects/**/pages/**/*.md",  // Project markdown pages
+    "./projects/**/pages/**/*.md",   // Project markdown pages
+    "./projects/**/templates/**/*.md", // Project template files - IMPORTANT!
     
     // Keep HTML scanning in case you add any HTML files later
     "./*.html",

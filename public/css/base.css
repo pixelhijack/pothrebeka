@@ -1,4 +1,13 @@
+/* Nav container - ensure transparent background */
+nav {
+  background: transparent !important;
+}
+
 /* Desktop Nav - horizontal layout */
+#nav-links {
+  background: transparent !important;
+}
+
 #nav-links ul {
   display: flex;
   flex-direction: row;
@@ -6,6 +15,7 @@
   margin: 0;
   padding: 0;
   align-items: center;
+  background: transparent;
 }
 
 #nav-links ul li {

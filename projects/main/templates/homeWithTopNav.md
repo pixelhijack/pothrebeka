@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
-  <link rel="stylesheet" href="/output.css">
-  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/output.css?v=2">
+  <link rel="stylesheet" href="/css/base.css?v=2">
 </head>
 <body {{backgroundStyle}}>
   <!-- Top Navigation -->
-  <nav class="fixed top-0 left-0 w-full z-50 bg-transparent" style="height: 75px;">
-    <div class="container mx-auto flex justify-between items-center h-full px-4">
+  <nav class="fixed top-0 left-0 w-full z-50" style="height: 75px; background: transparent;">
+    <div class="mx-auto flex justify-between items-center h-full px-4" style="max-width: 1280px;">
       <!-- Logo -->
-      <a href="/" class="text-4xl font-bold {{navColorClass}}"><b>Póth Attila</b></a>
+      <a href="/" class="text-4xl font-bold {{navColorClass}}"><b>Póth Rebeka</b></a>
       
       <!-- Desktop Nav Links -->
-      <div id="nav-links" class="hidden md:block {{navColorClass}}">
+      <div id="nav-links" class="hidden md:flex {{navColorClass}}">
         <ul>
 {{include:'topNav.md'}}
         </ul>
       </div>
       
       <!-- Mobile Hamburger Button -->
-      <button id="hamburger-btn" class="md:hidden text-5xl {{navColorClass}}" aria-label="Open menu" aria-expanded="false">≡</button>
+      <button id="hamburger-btn" class="block md:hidden text-5xl {{navColorClass}}" aria-label="Open menu" aria-expanded="false">≡</button>
     </div>
   </nav>
   

@@ -2,7 +2,7 @@
 slug: ""
 template: "homeWithTopNav"
 title: "landing page main section"
-navColor: "black"
+navColor: "white"
 background: null
 mainClass: "p-0 m-0"
 ---
