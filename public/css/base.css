@@ -41,7 +41,7 @@ nav {
 }
 
 #mobile-nav-overlay.hidden {
-  display: none !important;
+  display: none;
 }
 
 /* Mobile nav - vertical layout when visible */

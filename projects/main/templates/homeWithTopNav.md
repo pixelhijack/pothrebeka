@@ -58,6 +58,7 @@
     
     if (hamburgerBtn) {
       hamburgerBtn.addEventListener('click', () => {
+        mobileNavOverlay.classList.remove('hidden');
         mobileNavOverlay.style.display = 'block';
         hamburgerBtn.setAttribute('aria-expanded', 'true');
       });
@@ -65,6 +66,7 @@
     
     if (closeMobileNav) {
       closeMobileNav.addEventListener('click', () => {
+        mobileNavOverlay.classList.add('hidden');
         mobileNavOverlay.style.display = 'none';
         hamburgerBtn.setAttribute('aria-expanded', 'false');
       });
@@ -74,6 +76,7 @@
     const mobileLinks = document.querySelectorAll('#mobile-nav-list a');
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
+        mobileNavOverlay.classList.add('hidden');
         mobileNavOverlay.style.display = 'none';
         hamburgerBtn.setAttribute('aria-expanded', 'false');
       });
