@@ -1,5 +1,10 @@
 ---
-mainClass: "p-0 m-0"
+slug: "about"
+template: "homeWithTopNav"
+title: "About"
+navColor: "black"
+background: null
+mainClass: "pt-[75px]"
 ---
 
 - this is a subpage

@@ -160,7 +160,7 @@ export default function loadMarkdownPages(projectDir, workspaceRoot) {
       title: data.title || defaultTitle, // Default title if not specified
       navColor: data.navColor || 'black', // Default navColor if not specified
       html: html, // ← This is the key: pre-rendered HTML, not a tree
-      mainClass: "pt-[75px] m-0",
+      mainClass: data.mainClass || "", // Default mainClass if not specified
       _source: 'markdown' // Internal marker to track where this page came from
     };
   });

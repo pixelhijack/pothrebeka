@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="/output.css?v=2">
   <link rel="stylesheet" href="/css/base.css?v=2">
 </head>
-<body {{backgroundStyle}}>
+<body class="relative flex flex-col min-h-screen" {{backgroundStyle}}>
   <!-- Top Navigation -->
-  <nav class="fixed top-0 left-0 w-full z-50" style="height: 75px; background: transparent;">
-    <div class="mx-auto flex justify-between items-center h-full px-4" style="max-width: 1280px;">
+  <nav class="absolute top-0 left-0 w-full z-50 bg-transparent" style="height: 75px; background: transparent;">
+    <div class="mx-auto flex justify-between items-center h-full px-4 bg-transparent">
       <!-- Logo -->
       <a href="/" class="text-4xl font-bold {{navColorClass}}"><b>Póth Rebeka</b></a>
       
@@ -39,15 +39,13 @@
   </div>
   
   <!-- Main Content -->
-  <main class="{{mainClass}}">
+  <main class="flex-1 min-h-screen {{mainClass}}">
 {{main}}
   </main>
   
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white p-8">
-    <div class="container mx-auto">
-{{include:'footer.md'}}
-    </div>
+  <footer class="bg-gray-800 text-white p-8 mt-auto">
+    {{include:'footer.md'}}
   </footer>
   
   <script src="/js/client.js"></script>

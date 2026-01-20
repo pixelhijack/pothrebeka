@@ -38,7 +38,7 @@ export default function renderPage(page, templates) {
   html = html.replace(/\{\{navColorClass\}\}/g, navColorClass);
   
   // Replace {{mainClass}} with page's mainClass
-  const mainClass = page.mainClass || 'p-8';
+  const mainClass = page.mainClass || '';
   html = html.replace(/\{\{mainClass\}\}/g, mainClass);
   
   // Replace {{backgroundStyle}} with background style attribute
