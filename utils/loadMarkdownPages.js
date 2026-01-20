@@ -148,15 +148,19 @@ export default function loadMarkdownPages(projectDir, workspaceRoot) {
     // Build slug from file path (remove .md extension, normalize separators)
     // e.g., "subroute/subpage.md" → "subroute/subpage"
     const defaultSlug = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
-    
+    const defaultTitle = path.basename(relativePath, '.md');
+
     // Build page object compatible with manifest.json structure
     // Spread all frontmatter properties, then override with specific handling
     // This allows any custom properties (mainClass, etc.) to be preserved
     return {
       ...data, // Spread all frontmatter properties first
       slug: data.slug !== undefined ? data.slug : defaultSlug, // Use frontmatter slug if defined (even if empty)
-      navColor: data.navColor || 'white', // Default navColor if not specified
+      template: data.template || 'homeWithTopNav', // Default template if not specified
+      title: data.title || defaultTitle, // Default title if not specified
+      navColor: data.navColor || 'black', // Default navColor if not specified
       html: html, // ← This is the key: pre-rendered HTML, not a tree
+      mainClass: "pt-[75px] m-0",
       _source: 'markdown' // Internal marker to track where this page came from
     };
   });

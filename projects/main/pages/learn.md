@@ -1,9 +1,9 @@
 ---
-slug: "subpage"
+slug: "learn"
 template: "homeWithTopNav"
-title: "subpage"
+title: "Learn"
 navColor: "white"
 mainClass: "p-0 m-0"
 ---
 
-- this is a subpage
+Learn from Rebi
