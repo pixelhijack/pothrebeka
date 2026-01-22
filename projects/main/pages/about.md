@@ -7,4 +7,4 @@ background: null
 mainClass: "pt-[75px]"
 ---
 
-- this is a subpage
+- this is the about page
