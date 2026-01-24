@@ -6,13 +6,16 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="/output.css?v=2">
   <link rel="stylesheet" href="/css/base.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comforter&display=swap" rel="stylesheet">
 </head>
 <body class="relative flex flex-col min-h-screen" {{backgroundStyle}}>
   <!-- Top Navigation -->
   <nav class="absolute top-0 left-0 w-full z-50 bg-transparent" style="height: 75px; background: transparent;">
     <div class="mx-auto flex justify-between items-center h-full px-4 bg-transparent">
       <!-- Logo -->
-      <a href="/" class="text-4xl font-bold {{navColorClass}}"><b>Póth Rebeka</b></a>
+      <a href="/" class="font-title text-6xl pt-4 font-bold {{navColorClass}}"><b>Póth Rebeka</b></a>
       
       <!-- Desktop Nav Links -->
       <div id="nav-links" class="hidden md:flex {{navColorClass}}">
