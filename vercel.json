@@ -1,0 +1,23 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/__refresh-cache",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=86400, stale-while-revalidate=604800"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+# robots.txt - Optimize bot crawling to reduce CPU usage
+User-agent: *
+Disallow: /api/
+Disallow: /auth/
+Disallow: /*.json$
+
+# Limit crawl rate for aggressive bots
+# Google
+User-agent: Googlebot
+Crawl-delay: 2
+
+# Bing
+User-agent: Bingbot
+Crawl-delay: 3
+
+# Ahrefs (very aggressive crawler)
+User-agent: AhrefsBot
+Crawl-delay: 10
+Disallow: /img/
+
+# SEMrush
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# MJ12bot
+User-agent: MJ12bot
+Crawl-delay: 10
+
+# DotBot
+User-agent: DotBot
+Crawl-delay: 10
+
+# Allow important bots but limit rate
+User-agent: GPTBot
+Crawl-delay: 5
+
+# Block unnecessary/aggressive bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap for efficient crawling
+Sitemap: https://pothattila.com/sitemap.xml

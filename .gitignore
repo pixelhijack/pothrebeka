@@ -1,5 +1,6 @@
 .env
 public/img/
+public/generated/
 uploadtest
 node_modules
 .DS_Store

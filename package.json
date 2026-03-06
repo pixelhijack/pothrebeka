@@ -11,6 +11,9 @@
     "path": "^0.12.7"
   },
   "scripts": {
+    "build": "npm run build:css && node build.js",
+    "build:css": "tailwindcss -i ./public/input.css -o ./public/output.css --minify",
+    "build:pages": "node build.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "cross-env NODE_DEBUG=express node server.js",
     "watch-css": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch",

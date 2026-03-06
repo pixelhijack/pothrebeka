@@ -603,6 +603,10 @@ video {
   margin-right: auto;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
 .mt-4 {
   margin-top: 1rem;
 }
@@ -623,10 +627,6 @@ video {
   margin-top: auto;
 }
 
-.mt-16 {
-  margin-top: 4rem;
-}
-
 .block {
   display: block;
 }
@@ -641,6 +641,10 @@ video {
 
 .flex {
   display: flex;
+}
+
+.table {
+  display: table;
 }
 
 .hidden {
@@ -751,16 +755,12 @@ video {
   padding-bottom: 0.75rem;
 }
 
-.pt-\[75px\] {
-  padding-top: 75px;
-}
-
 .pt-4 {
   padding-top: 1rem;
 }
 
-.pt-8 {
-  padding-top: 2rem;
+.pt-\[75px\] {
+  padding-top: 75px;
 }
 
 .text-center {
@@ -795,6 +795,10 @@ video {
   font-weight: 100;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
@@ -813,6 +817,10 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .hover\:bg-blue-600:hover {
