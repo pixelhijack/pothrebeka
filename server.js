@@ -214,6 +214,217 @@ app.use((req, res, next) => {
 app.get('/__refresh-cache', handleManualRefresh);
 app.post('/__refresh-cache', handleManualRefresh);
 
+// Admin panel for cache refresh
+app.get('/admin/refresh', (req, res) => {
+  res.type('text/html').send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Cache Refresh Admin</title>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .container {
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          padding: 40px;
+          max-width: 400px;
+          width: 100%;
+        }
+        h1 {
+          font-size: 24px;
+          margin-bottom: 10px;
+          color: #333;
+        }
+        .subtitle {
+          color: #666;
+          font-size: 14px;
+          margin-bottom: 30px;
+        }
+        .form-group {
+          margin-bottom: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 8px;
+          color: #333;
+          font-weight: 500;
+          font-size: 14px;
+        }
+        input {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          font-size: 14px;
+          font-family: monospace;
+          transition: border-color 0.2s;
+        }
+        input:focus {
+          outline: none;
+          border-color: #667eea;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        button {
+          width: 100%;
+          padding: 12px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+        .response {
+          margin-top: 30px;
+          padding: 20px;
+          border-radius: 6px;
+          font-size: 13px;
+          display: none;
+          white-space: pre-wrap;
+          word-break: break-word;
+          font-family: monospace;
+        }
+        .response.success {
+          background: #e8f5e9;
+          color: #2e7d32;
+          border: 1px solid #a5d6a7;
+          display: block;
+        }
+        .response.error {
+          background: #ffebee;
+          color: #c62828;
+          border: 1px solid #ef9a9a;
+          display: block;
+        }
+        .loading {
+          display: inline-block;
+          margin-left: 8px;
+        }
+        .spinner {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          border: 2px solid #f3f3f3;
+          border-top: 2px solid #667eea;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>🚀 Cache Refresh</h1>
+        <p class="subtitle">Regenerate static pages and bust CDN cache</p>
+        
+        <form id="refreshForm">
+          <div class="form-group">
+            <label for="token">Refresh Token</label>
+            <input 
+              type="password" 
+              id="token" 
+              name="token" 
+              placeholder="Enter your refresh token"
+              required
+            >
+          </div>
+          <button type="submit" id="submitBtn">
+            Refresh Cache
+            <span class="loading" id="loading" style="display: none;">
+              <span class="spinner"></span>
+            </span>
+          </button>
+        </form>
+
+        <div id="response" class="response"></div>
+      </div>
+
+      <script>
+        const form = document.getElementById('refreshForm');
+        const tokenInput = document.getElementById('token');
+        const submitBtn = document.getElementById('submitBtn');
+        const responseDiv = document.getElementById('response');
+        const loading = document.getElementById('loading');
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const token = tokenInput.value.trim();
+          if (!token) {
+            showResponse('Please enter a token', 'error');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          loading.style.display = 'inline';
+
+          try {
+            const response = await fetch('/__refresh-cache', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-refresh-token': token,
+              },
+              body: JSON.stringify({}),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.ok) {
+              const message = \`✅ Cache refreshed successfully
+
+Generated pages: \${data.staticRegenerated ? 'Yes' : 'No'}
+Deploy triggered: \${data.deploymentTriggered ? 'Yes' : 'No'}
+Cache bust query: \${data.cacheBustQuery}
+
+\${data.note}\`;
+              showResponse(message, 'success');
+            } else {
+              showResponse(\`❌ \${data.message || 'Failed to refresh cache'}\`, 'error');
+            }
+          } catch (error) {
+            showResponse(\`❌ Error: \${error.message}\`, 'error');
+          } finally {
+            submitBtn.disabled = false;
+            loading.style.display = 'none';
+          }
+        });
+
+        function showResponse(message, type) {
+          responseDiv.textContent = message;
+          responseDiv.className = \`response \${type}\`;
+        }
+      </script>
+    </body>
+    </html>
+  `);
+});
+
 // Serve static files from the "public" folder
 app.use(express.static(publicDir, { index: false }));
 // serve project-specific static assets so /projects/* is reachable from the browser
