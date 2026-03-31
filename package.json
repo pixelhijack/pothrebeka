@@ -18,7 +18,9 @@
     "start-server": "cross-env NODE_DEBUG=express node server.js",
     "watch-css": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch",
     "dev": "concurrently \"npm run start-server\" \"npm run watch-css\"",
-    "start": "cross-env PROJECT_NAME=main npm run dev"
+    "start": "cross-env PROJECT_NAME=main npm run dev",
+    "upload": "node cloudinary-upload.js",
+    "folders": "node img-folder-to-json.js"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
