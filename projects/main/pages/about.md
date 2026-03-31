@@ -7,4 +7,6 @@ background: null
 mainClass: "pt-[75px]"
 ---
 
-- this is ABOUT
+<div class="flex justify-center items-center">
+COMING SOON!
+</div>

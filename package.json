@@ -14,10 +14,11 @@
     "build": "npm run build:css && node build.js",
     "build:css": "tailwindcss -i ./public/input.css -o ./public/output.css --minify",
     "build:pages": "node build.js",
+    "watch:pages": "nodemon --watch projects --watch templates -e md,json --exec 'node build.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-server": "cross-env NODE_DEBUG=express node server.js",
     "watch-css": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch",
-    "dev": "concurrently \"npm run start-server\" \"npm run watch-css\"",
+    "dev": "concurrently \"npm run start-server\" \"npm run watch-css\" \"npm run watch:pages\"",
     "start": "cross-env PROJECT_NAME=main npm run dev",
     "upload": "node cloudinary-upload.js",
     "folders": "node img-folder-to-json.js"
@@ -27,6 +28,7 @@
     "concurrently": "^9.2.1",
     "cross-env": "^7.0.3",
     "dotenv": "^17.2.3",
+    "nodemon": "^3.1.14",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.18"
   },

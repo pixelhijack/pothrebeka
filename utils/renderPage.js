@@ -1,3 +1,42 @@
+export function getImageSrcServer(filename) {
+  if (!filename) return '';
+  if (filename.startsWith('https://')) return filename;
+  return `https://res.cloudinary.com/do78bvk8h/image/upload/f_auto,q_auto/${filename}`;
+}
+
+function replaceImageUrls(html) {
+  // We still need this helper because chapter markdown is already converted
+  // to raw HTML here, and image URLs can appear inside HTML attributes/styles.
+  // Reuse the shared URL mapper to avoid duplicating Cloudinary logic.
+
+  const resolveImagePath = (imagePath) => {
+    if (!imagePath || imagePath.startsWith('http')) return imagePath;
+    // Strip /img/ prefix if present, then pass to getImageSrcServer
+    const cleanPath = imagePath.replace(/^\/img\//, '');
+    return getImageSrcServer(cleanPath);
+  };
+
+  // Replace inline style background-image URLs
+  html = html.replace(
+    /url\(['"]?\/img\/([^'"\)]+)['"]?\)/gi,
+    (match, imagePath) => {
+      const resolved = resolveImagePath(`/img/${imagePath}`);
+      return `url('${resolved}')`;
+    }
+  );
+  
+  // Replace img src attributes
+  html = html.replace(
+    /<img([^>]+)src=['"]?([^'"\s>]+)['"]?/gi,
+    (match, beforeSrc, imagePath) => {
+      const resolved = resolveImagePath(imagePath);
+      return `<img${beforeSrc}src="${resolved}"`;
+    }
+  );
+  
+  return html;
+}
+
 /**
  * Render a complete HTML page with master template
  * 
@@ -46,6 +85,8 @@ export default function renderPage(page, templates) {
     ? `style="background-image: url('${page.background}');"` 
     : '';
   html = html.replace(/\{\{backgroundStyle\}\}/g, backgroundStyle);
+
+  html = replaceImageUrls(html);
   
   return html;
 }
