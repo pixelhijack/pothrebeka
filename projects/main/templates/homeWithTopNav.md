@@ -15,7 +15,7 @@
   <nav class="absolute top-0 left-0 w-full z-50 bg-transparent" style="height: 75px; background: transparent;">
     <div class="mx-auto flex justify-between items-center h-full px-4 bg-transparent">
       <!-- Logo -->
-      <a href="/" class="font-title text-6xl pt-4 font-bold {{navColorClass}}"><b>Póth Rebeka</b></a>
+      <a href="/" class="font-title text-6xl pt-4 font-bold {{navColorClass}}"><b></b></a>
       
       <!-- Desktop Nav Links -->
       <div id="nav-links" class="hidden md:flex {{navColorClass}}">
